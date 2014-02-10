@@ -20,8 +20,6 @@
 			if (history.length >= 2) {
 				var item = routesConfig[history[history.length - 2]];
 				if (item && item.event && item.defaultParent) {
-					//Blocking view
-					sor = true;
 					if (item.onChange) $rootScope.$broadcast(item.onChange);
 				}
 			}
