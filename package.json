@@ -1,0 +1,5 @@
+{
+  "name": "angular-static-route",
+  "version": "0.0.2",
+  "main": "./src/angular-static-route.js"
+}
