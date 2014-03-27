@@ -14,7 +14,7 @@
 		var staticRoutePromise = function($q, $route, $rootScope, $window, $location) {
 			var deferred = $q.defer();
 			var route = $route.current.$$route;
-			var sr = (route.event && route.defaultParent) ? true : false;
+			var sr = (route && route.event && route.defaultParent) ? true : false;
 			var sor = false;
 
 			if (history.length >= 2) {
@@ -26,7 +26,7 @@
 
 			// If it is a static route, we call the event
 			if (sr)
-				$rootScope.$broadcast(route.event);
+				$rootScope.$broadcast(route.event, history.length);
 
 			// If that's the first load or that's not a static route, we resolve the promise to display the view
 			if (firstLoad || (!sr && !sor)) {
@@ -62,7 +62,8 @@
 	.run(function ($rootScope, $route, $location) {
 		
 		$rootScope.$on('$locationChangeSuccess', function(event) {
-			history.push($route.current.$$route.originalPath);
+			if ($route.current && $route.current.$$route && $route.current.$$route.originalPath)
+				history.push($route.current.$$route.originalPath);
 		});
 
 	});
